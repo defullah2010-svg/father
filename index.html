@@ -237,10 +237,10 @@ function printPDF(){
   const selects = content.querySelectorAll('select');
   selects.forEach(sel => sel.remove());
 
-  Plotly.toImage(document.getElementById('studentChart'), {format:'png', width:700, height:250}).then(function(dataUrl){
+  Plotly.toImage(document.getElementById('studentChart'), {format:'png', width:700, height:350}).then(function(dataUrl){
     const img = document.createElement('img');
     img.src = dataUrl;
-    img.style.width='100%';
+    img.style.width='60%';
     const chartDiv = content.querySelector('#studentChart');
     if(chartDiv) chartDiv.replaceWith(img);
 
