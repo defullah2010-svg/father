@@ -23,25 +23,24 @@ header h1 { margin:0; font-size:18px; }
 label {
   display:block;
   margin:5px 0 2px;
-  font-weight:bold; /* الخط عريض */
-  font-size:12px;   /* حافظ على حجم الخط كما هو */
+  font-weight:bold;
+  font-size:12px;
   background:transparent;
   text-align:center;
 }
 
 input, textarea, select {
   width:100%;
-  padding:6px;           /* زيادة ارتفاع الحقل ليطابق الليبل */
+  padding:6px;
   border:1px solid #c2c1c2;
   border-radius:4px;
   margin-bottom:5px;
   box-sizing:border-box;
   font-size:12px;
-  text-align:center;     /* محاذاة النص للوسط */
+  text-align:center;
   background-color: white;
 }
 
-/* زر الطباعة أفقي ويمتد على كامل العرض */
 button {
   background:#0c8380;
   color:white;
@@ -52,14 +51,13 @@ button {
   border-radius:6px;
   font-size:16px;
   font-weight:bold;
-  width:100%; /* عرض كامل */
+  width:100%;
   display:block;
   text-align:center;
 }
 
 #studentChart { width:100%; height:320px; margin-top:10px; }
 
-/* النسبة والتقدير: يظهر دائمًا بخلفية فاتحة وخط واضح */
 .rating-display {
   display:block; 
   text-align:center; 
@@ -67,15 +65,15 @@ button {
   font-weight:bold; 
   color:#d73027; 
   font-size:16px;
-  background-color:#f9eaea; /* خلفية فاتحة */
+  background-color:#f9eaea;
   border-radius:6px;
   padding:5px;
 }
 
 @media print {
   button { display:none; }
-  select { display:none; } /* إخفاء القوائم عند الطباعة */
-  .hide-label-print label { display:none; } /* إخفاء الليبل عند الطباعة */
+  select { display:none; }
+  .hide-label-print label { display:none; }
 }
 </style>
 </head>
@@ -181,7 +179,6 @@ function updateChartAndInputs(){
   const vBeh = Number(document.getElementById('selBeh').value);
   const vAtt = Number(document.getElementById('selAtt').value);
 
-  // بدون أقواس عند الطباعة
   document.getElementById('displayEdu').textContent = `${ratingText(vEdu)} ${vEdu}%`;
   document.getElementById('displayBeh').textContent = `${ratingText(vBeh)} ${vBeh}%`;
   document.getElementById('displayAtt').textContent = `${ratingText(vAtt)} ${vAtt}%`;
@@ -200,6 +197,7 @@ function updateChartAndInputs(){
     type:'bar',
     text: texts,
     textposition:'auto',
+    hoverinfo: 'none',          // يمنع أي تأثير عند مرور الفأرة
     marker: { color:['#1a9850','#fdae61','#d73027'] },
     textfont: {
       family: 'HelveticaNeueW23, Arial, sans-serif',
@@ -208,8 +206,13 @@ function updateChartAndInputs(){
     }
   };
 
-  const layout = { margin:{l:40,r:20,b:40,t:40}, yaxis:{title:'النسبة %', range:[0,100]} };
-  Plotly.newPlot('studentChart',[trace],layout,{displayModeBar:false,responsive:true});
+  const layout = { 
+    margin:{l:40,r:20,b:40,t:40}, 
+    yaxis:{title:'النسبة %', range:[0,100]} 
+  };
+
+  Plotly.newPlot('studentChart',[trace],layout,{displayModeBar:false,responsive:true, staticPlot:true});
+
 }
 
 // تهيئة أولية
@@ -231,11 +234,9 @@ function printPDF(){
   const content = document.querySelector('div[style*="max-width:800px"]').cloneNode(true);
   content.querySelector('button').remove();
 
-  // إزالة جميع القوائم عند الطباعة
   const selects = content.querySelectorAll('select');
   selects.forEach(sel => sel.remove());
 
-  // تحويل الرسم البياني إلى صورة
   Plotly.toImage(document.getElementById('studentChart'), {format:'png', width:700, height:350}).then(function(dataUrl){
     const img = document.createElement('img');
     img.src = dataUrl;
