@@ -107,7 +107,7 @@ button {
 <!-- الصف الرابع: قوائم منسدلة 0%-100% -->
 <div style="display:flex; gap:10px; justify-content:center;" class="hide-label-print">
   <div>
-    <label>مستوى التعليم للطالب</label>
+    <label>مستوى التعليم</label>
     <select id="selEdu" onchange="updateChartAndInputs()">
       <option value="0">0%</option><option value="10">10%</option><option value="20">20%</option>
       <option value="30">30%</option><option value="40">40%</option><option value="50">50%</option>
@@ -119,7 +119,7 @@ button {
   </div>
 
   <div>
-    <label>مستوى السلوك للطالب</label>
+    <label>مستوى السلوك</label>
     <select id="selBeh" onchange="updateChartAndInputs()">
       <option value="0">0%</option><option value="10">10%</option><option value="20">20%</option>
       <option value="30">30%</option><option value="40">40%</option><option value="50">50%</option>
@@ -131,7 +131,7 @@ button {
   </div>
 
   <div>
-    <label>مستوى المواظبة للطالب</label>
+    <label>مستوى المواظبة</label>
     <select id="selAtt" onchange="updateChartAndInputs()">
       <option value="0">0%</option><option value="10">10%</option><option value="20">20%</option>
       <option value="30">30%</option><option value="40">40%</option><option value="50">50%</option>
@@ -198,7 +198,7 @@ function updateChartAndInputs(){
     text: texts,
     textposition:'auto',
     hoverinfo: 'none',          // يمنع أي تأثير عند مرور الفأرة
-    marker: { color:['#1a9850','#fdae61','#d73027'] },
+    marker: { color:['#56CC8A','#FFBD80','#58A5ED'] },
     textfont: {
       family: 'HelveticaNeueW23, Arial, sans-serif',
       size: 12,
@@ -237,7 +237,7 @@ function printPDF(){
   const selects = content.querySelectorAll('select');
   selects.forEach(sel => sel.remove());
 
-  Plotly.toImage(document.getElementById('studentChart'), {format:'png', width:700, height:350}).then(function(dataUrl){
+  Plotly.toImage(document.getElementById('studentChart'), {format:'png', width:400, height:350}).then(function(dataUrl){
     const img = document.createElement('img');
     img.src = dataUrl;
     img.style.width='100%';
