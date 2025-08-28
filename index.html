@@ -240,7 +240,7 @@ function printPDF(){
   Plotly.toImage(document.getElementById('studentChart'), {format:'png', width:700, height:350}).then(function(dataUrl){
     const img = document.createElement('img');
     img.src = dataUrl;
-    img.style.width='60%';
+    img.style.width='100%';
     const chartDiv = content.querySelector('#studentChart');
     if(chartDiv) chartDiv.replaceWith(img);
 
