@@ -56,7 +56,7 @@ button {
   text-align:center;
 }
 
-#studentChart { width:100%; height:320px; margin-top:10px; }
+#studentChart { width:50%; height:320px; margin-top:10px; }
 
 .rating-display {
   display:block; 
@@ -237,7 +237,7 @@ function printPDF(){
   const selects = content.querySelectorAll('select');
   selects.forEach(sel => sel.remove());
 
-  Plotly.toImage(document.getElementById('studentChart'), {format:'png', width:400, height:350}).then(function(dataUrl){
+  Plotly.toImage(document.getElementById('studentChart'), {format:'png', width:700, height:350}).then(function(dataUrl){
     const img = document.createElement('img');
     img.src = dataUrl;
     img.style.width='100%';
