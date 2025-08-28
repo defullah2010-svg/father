@@ -23,8 +23,8 @@ header h1 { margin:0; font-size:18px; }
 label {
   display:block;
   margin:5px 0 2px;
-  font-weight:normal; /* الخط عادي */
-  font-size:14px;
+  font-weight:blod; /* الخط عادي */
+  font-size:12px;
   background:transparent;
   text-align:center;
 }
@@ -36,7 +36,7 @@ input, textarea, select {
   border-radius:4px;
   margin-bottom:5px;
   box-sizing:border-box;
-  font-size:14px;
+  font-size:12px;
   text-align:center;     /* محاذاة النص للوسط */
   background-color: white;
 }
@@ -152,7 +152,7 @@ button {
 </div>
 
 <!-- الرسم البياني 2D -->
-<h3 style="text-align:center; margin-top:12px;">الرسم البياني لمستوى الطالب </h3>
+<h4 style="text-align:center; margin-top:12px;">الرسم البياني لمستوى الطالب </h4>
 <div id="studentChart"></div>
 
 <!-- الصف السادس: الموجه والمدير -->
@@ -189,9 +189,9 @@ function updateChartAndInputs(){
   const values = [vEdu,vBeh,vAtt];
   const labels = ['مستوى التعليم','مستوى السلوك','مستوى المواظبة'];
   const texts = [
-    `${ratingText(vEdu)} ${vEdu}%`,
-    `${ratingText(vBeh)} ${vBeh}%`,
-    `${ratingText(vAtt)} ${vAtt}%`
+    `%${ratingText(vEdu)} ${vEdu}`,
+    `%${ratingText(vBeh)} ${vBeh}`,
+    `%${ratingText(vAtt)} ${vAtt}`
   ];
 
   const trace = {
@@ -203,7 +203,7 @@ function updateChartAndInputs(){
     marker: { color:['#1a9850','#fdae61','#d73027'] },
     textfont: {
       family: 'HelveticaNeueW23, Arial, sans-serif',
-      size: 14,
+      size: 12,
       color: 'black'
     }
   };
