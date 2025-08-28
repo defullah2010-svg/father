@@ -20,9 +20,42 @@ body, input, select, label, button {
 header { background:#15445A; color:white; text-align:center; padding:15px; }
 header h1 { margin:0; font-size:18px; }
 
-label { display:block; margin:5px 0; font-weight:bold; text-align:center; }
-input, select { width:100%; padding:4px; margin-bottom:5px; box-sizing:border-box; text-align:center; font-size:13px; }
-button { background:#0c8380; color:white; border:none; padding:8px; margin-top:10px; cursor:pointer; border-radius:6px; font-size:14px; font-weight:bold; }
+label {
+  display:block;
+  margin:5px 0 2px;
+  font-weight:normal; /* الخط عادي */
+  font-size:14px;
+  background:transparent;
+  text-align:center;
+}
+
+input, textarea, select {
+  width:100%;
+  padding:6px;           /* زيادة ارتفاع الحقل ليطابق الليبل */
+  border:1px solid #c2c1c2;
+  border-radius:4px;
+  margin-bottom:5px;
+  box-sizing:border-box;
+  font-size:14px;
+  text-align:center;     /* محاذاة النص للوسط */
+  background-color: white;
+}
+
+/* زر الطباعة أفقي ويمتد على كامل العرض */
+button {
+  background:#0c8380;
+  color:white;
+  border:none;
+  padding:12px 0;
+  margin-top:10px;
+  cursor:pointer;
+  border-radius:6px;
+  font-size:16px;
+  font-weight:bold;
+  width:100%; /* عرض كامل */
+  display:block;
+  text-align:center;
+}
 
 #studentChart { width:100%; height:320px; margin-top:10px; }
 
@@ -54,23 +87,23 @@ button { background:#0c8380; color:white; border:none; padding:8px; margin-top:1
 
 <!-- الصف الأول: الإدارة و المدرسة -->
 <div style="display:flex; gap:10px; justify-content:center;">
-  <div><label>إدارة تعليم منطقة</label><input type="text" id="eduAdmin"></div>
-  <div><label>اسم المدرسة</label><input type="text" id="schoolName"></div>
+  <div><label>إدارة تعليم منطقة</label><input type="text"></div>
+  <div><label>اسم المدرسة</label><input type="text"></div>
 </div>
 
 <!-- الصف الثاني: المعلم والمادة والفصل -->
 <div style="display:flex; gap:10px; justify-content:center;">
-  <div><label>اسم المعلم</label><input type="text" id="teacherName"></div>
-  <div><label>المادة</label><input type="text" id="subject"></div>
-  <div><label>الفصل الدراسي</label><input type="text" id="semester"></div>
+  <div><label>اسم المعلم</label><input type="text"></div>
+  <div><label>المادة</label><input type="text"></div>
+  <div><label>الفصل الدراسي</label><input type="text"></div>
 </div>
 
 <!-- الصف الثالث: الطالب والصف واليوم والتاريخ -->
 <div style="display:flex; gap:10px; justify-content:center;">
-  <div><label>اسم الطالب</label><input type="text" id="studentName"></div>
-  <div><label>الصف</label><input type="text" id="class"></div>
-  <div><label>اليوم</label><input type="text" id="day"></div>
-  <div><label>التاريخ</label><input type="text" id="date"></div>
+  <div><label>اسم الطالب</label><input type="text"></div>
+  <div><label>الصف</label><input type="text"></div>
+  <div><label>اليوم</label><input type="text"></div>
+  <div><label>التاريخ</label><input type="text"></div>
 </div>
 
 <!-- الصف الرابع: قوائم منسدلة 0%-100% -->
@@ -119,7 +152,7 @@ button { background:#0c8380; color:white; border:none; padding:8px; margin-top:1
 </div>
 
 <!-- الرسم البياني 2D -->
-<h3 style="text-align:center; margin-top:12px;">الرسم البياني لمستوى الطالب (2D)</h3>
+<h3 style="text-align:center; margin-top:12px;">الرسم البياني لمستوى الطالب </h3>
 <div id="studentChart"></div>
 
 <!-- الصف السادس: الموجه والمدير -->
@@ -148,16 +181,17 @@ function updateChartAndInputs(){
   const vBeh = Number(document.getElementById('selBeh').value);
   const vAtt = Number(document.getElementById('selAtt').value);
 
-  document.getElementById('displayEdu').textContent = `${vEdu}% (${ratingText(vEdu)})`;
-  document.getElementById('displayBeh').textContent = `${vBeh}% (${ratingText(vBeh)})`;
-  document.getElementById('displayAtt').textContent = `${vAtt}% (${ratingText(vAtt)})`;
+  // بدون أقواس عند الطباعة
+  document.getElementById('displayEdu').textContent = `${ratingText(vEdu)} ${vEdu}%`;
+  document.getElementById('displayBeh').textContent = `${ratingText(vBeh)} ${vBeh}%`;
+  document.getElementById('displayAtt').textContent = `${ratingText(vAtt)} ${vAtt}%`;
 
   const values = [vEdu,vBeh,vAtt];
   const labels = ['مستوى التعليم','مستوى السلوك','مستوى المواظبة'];
   const texts = [
-    `${ratingText(vEdu)} (${vEdu}%)`,
-    `${ratingText(vBeh)} (${vBeh}%)`,
-    `${ratingText(vAtt)} (${vAtt}%)`
+    `${ratingText(vEdu)} ${vEdu}%`,
+    `${ratingText(vBeh)} ${vBeh}%`,
+    `${ratingText(vAtt)} ${vAtt}%`
   ];
 
   const trace = {
@@ -166,8 +200,14 @@ function updateChartAndInputs(){
     type:'bar',
     text: texts,
     textposition:'auto',
-    marker: { color:['#1a9850','#fdae61','#d73027'] }
+    marker: { color:['#1a9850','#fdae61','#d73027'] },
+    textfont: {
+      family: 'HelveticaNeueW23, Arial, sans-serif',
+      size: 14,
+      color: 'black'
+    }
   };
+
   const layout = { margin:{l:40,r:20,b:40,t:40}, yaxis:{title:'النسبة %', range:[0,100]} };
   Plotly.newPlot('studentChart',[trace],layout,{displayModeBar:false,responsive:true});
 }
