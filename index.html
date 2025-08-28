@@ -189,9 +189,9 @@ function updateChartAndInputs(){
   const values = [vEdu,vBeh,vAtt];
   const labels = ['مستوى التعليم','مستوى السلوك','مستوى المواظبة'];
   const texts = [
-    `%${ratingText(vEdu)} ${vEdu}`,
-    `%${ratingText(vBeh)} ${vBeh}`,
-    `%${ratingText(vAtt)} ${vAtt}`
+    `${ratingText(vEdu)} %${vEdu}`,
+    `${ratingText(vBeh)} %${vBeh}`,
+    `${ratingText(vAtt)} %${vAtt}`
   ];
 
   const trace = {
